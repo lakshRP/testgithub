@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Feedback Analytics</title>
+</head>
+<body>
+    <h1>Feedback Analytics</h1>
+    <h2>Question: {{ question }}</h2>
+    <h3>Color: {{ color }}</h3>
+    
+    <h2>Feedback Received:</h2>
+    <ul id="listOfResponces">
+    {% for feedback in feedbacks %}
+        <li>{{ feedback.feedback_text }}</li>
+    {% endfor %}
+    </ul>
+
+    <button onclick="sendToPython()">Summarize</button>
+    <script>
+        function sendToPython() {
+            var listOfResponces = document.getElementById("listOfResponces");
+            var feedbacks = [];
+            for (var i = 0; i < listOfResponces.children.length; i++) {
+                feedbacks.push(listOfResponces.children[i].textContent);
+            }
+            
+            fetch("/summarize_feedback", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({feedbacks: feedbacks})
+            })
+            .then(response => response.json())
+            .then(data => {
+                listOfResponces.innerHTML = "<li>" + data.summary + "</li>";
+            })
+            .catch(error => {
+                console.error("Error:", error);
+            });
+        }
+    </script>
+</body>
+</html>
