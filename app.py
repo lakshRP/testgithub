@@ -24,26 +24,43 @@ class User(db.Model):
     def check_password(self, password):
         return bcrypt.checkpw(password.encode('utf-8'), self.password.encode('utf-8'))
 
-
 class Feedback(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     feedback_text = db.Column(db.Text, nullable=False)
-    session_id = db.Column(db.String(100), nullable=False)  # New column
+    session_id = db.Column(db.String(100), nullable=False)
 
     def __init__(self, user_id, feedback_text, session_id):
         self.user_id = user_id
         self.feedback_text = feedback_text
         self.session_id = session_id
 
-# Store sessions in a dictionary (for simplicity)
-sessionslist = {} 
+sessionslist = {}
+
+def is_email_duplicate(email):
+    return User.query.filter_by(email=email).first() is not None
+
 with app.app_context():
     db.create_all()
-
 @app.route('/')
-def index():
+def home():
     return render_template('index.html')
+
+@app.route('/features.html')
+def features():
+    return render_template('features.html')
+
+@app.route('/pricing.html')
+def pricing():
+    return render_template('pricing.html')
+
+@app.route('/about.html')
+def about():
+    return render_template('about.html')
+
+@app.route('/contact.html')
+def contact():
+    return render_template('contact.html')
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -51,6 +68,10 @@ def register():
         name = request.form['name']
         email = request.form['email']
         password = request.form['password']
+
+        if is_email_duplicate(email):
+            error = 'Email already registered. Please use a different email.'
+            return render_template('register.html', error=error)
 
         new_user = User(name=name, email=email, password=password)
         db.session.add(new_user)
@@ -105,24 +126,21 @@ def create_session():
     if 'email' in session:
         user = User.query.filter_by(email=session['email']).first()
         user_email = user.email
-    # Generate a unique session ID
+
     session_id = str(uuid.uuid4())
-    # Store the session (for demo purposes, just storing in a dictionary)
     sessionslist[session_id] = {'status': 'active'}
-    # Redirect to the session URL
     
     return redirect(url_for('teacher', session_id=session_id, teacher_email=user_email, question=question, color=color))
 
 @app.route('/teacher/<teacher_email>/<session_id>/<question>/<color>')
 def teacher(session_id, teacher_email, question, color):
-    if 'email' in session:
-        if teacher_email == session['email']:
-            user = User.query.filter_by(email=session['email']).first()
-            if session_id in sessionslist:
-                feedbacks = Feedback.query.filter_by(session_id=session_id).all()  # Filter by session ID
-                return render_template('analytics.html', user=user, session_id=session_id, question=question, color=color, feedbacks=feedbacks)
-            else:
-                return 'Session not found!', 404
+    if 'email' in session and teacher_email == session['email']:
+        user = User.query.filter_by(email=session['email']).first()
+        if session_id in sessionslist:
+            feedbacks = Feedback.query.filter_by(session_id=session_id).all()
+            return render_template('analytics.html', user=user, session_id=session_id, question=question, color=color, feedbacks=feedbacks)
+        else:
+            return 'Session not found!', 404
     return redirect('/login')
 
 @app.route('/join/<teacher_email>/<session_id>/<question>/<color>')
@@ -148,20 +166,35 @@ def submit_feedback(session_id, teacher_email):
 def thank_you():
     return "Thank you for your feedback!"
 
+def summarize(feedbacks):
+    import subprocess
+    import json
+    
+    process = subprocess.Popen(
+        ['python', 'summarize.py'],
+        stdin=subprocess.PIPE,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True
+    )
+
+    input_data = json.dumps(feedbacks)
+    stdout, stderr = process.communicate(input=input_data)
+    
+    if process.returncode != 0:
+        raise Exception(f"Error in summarization script: {stderr}")
+
+    return stdout.strip()
+
 @app.route('/summarize_feedback', methods=['POST'])
 def summarize_feedback():
     data = request.get_json()
     feedbacks = data['feedbacks']
     
-    # Call the summarization script
-    summary = summarize(feedbacks)
+    result = summarize(feedbacks)
+    result_data = json.loads(result)
     
-    return jsonify({'summary': summary})
-
-def summarize(feedbacks):
-    import subprocess
-    result = subprocess.run(['python', 'summarize.py'], input=json.dumps(feedbacks), text=True, capture_output=True)
-    return result.stdout.strip()
+    return jsonify(result_data)
 
 if __name__ == '__main__':
     app.run(debug=True)

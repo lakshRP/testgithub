@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TalkTabs - About Us</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            color: #4a4a4a;
+            background-color: #f6f9fc;
+        }
+
+        header {
+            background-color: #0a2540;
+            color: #fff;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+        }
+
+        .nav-links li {
+            margin: 0 1rem;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #a0aec0;
+        }
+
+        .auth-buttons .login-btn,
+        .auth-buttons .signup-btn {
+            margin-left: 1rem;
+            text-decoration: none;
+            color: #0a2540;
+            background-color: #fff;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .auth-buttons .login-btn:hover,
+        .auth-buttons .signup-btn:hover {
+            background-color: #6772e5;
+            color: #fff;
+        }
+
+        .signup-btn {
+            background-color: #6772e5;
+            color: #fff;
+        }
+
+        .hero {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: #fff;
+            border-bottom-left-radius: 50% 20%;
+            border-bottom-right-radius: 50% 20%;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 60%;
+        }
+
+        .hero-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .about-section {
+            padding: 4rem 2rem;
+            background: #fff;
+            text-align: center;
+        }
+
+        .about-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: #32325d;
+        }
+
+        .about-section p {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .about-values {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .value {
+            flex: 1 1 300px;
+            padding: 2rem;
+            text-align: left;
+        }
+
+        .value h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #32325d;
+        }
+
+        .value p {
+            font-size: 1.2rem;
+        }
+
+        .team-section {
+            padding: 4rem 2rem;
+            background: #f6f9fc;
+            text-align: center;
+        }
+
+        .team-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: #32325d;
+        }
+
+        .team-members {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .team-member {
+            flex: 1 1 300px;
+            margin: 1rem;
+            text-align: center;
+        }
+
+        .team-member img {
+            width: 100%;
+            max-width: 200px;
+            border-radius: 50%;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .team-member h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #32325d;
+        }
+
+        .team-member p {
+            font-size: 1.2rem;
+        }
+
+        footer {
+            background: #0a2540;
+            color: #fff;
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        footer p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">TalkTabs</div>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('features') }}">Features</a></li>
+                <li><a href="{{ url_for('pricing') }}">Pricing</a></li>
+                <li><a href="{{ url_for('about') }}">About Us</a></li>
+                <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
+              </ul>
+              <div class="auth-buttons">
+                <a href="/login" class="login-btn">Login</a>
+                <a href="/register" class="signup-btn">Sign Up</a>
+            </div>
+        </nav>
+    </header>
+    <section class="hero">
+        <div class="hero-content">
+            <h1>About Us</h1>
+            <p>Learn more about TalkTabs and our mission to transform the way feedback is gathered and utilized in education.</p>
+        </div>
+    </section>
+    <section class="about-section">
+        <h2>Our Mission</h2>
+        <p>At TalkTabs, we believe that every student's voice deserves to be heard. Our mission is to create a platform that empowers students to provide meaningful feedback anonymously, helping teachers and administrators improve the educational experience. By leveraging advanced AI and NLP technologies, we strive to make feedback collection efficient, insightful, and impactful.</p>
+        <h2>Our Values</h2>
+        <div class="about-values">
+            <div class="value">
+                <h3>Inclusivity</h3>
+                <p>We believe in creating an inclusive environment where every student's opinion is valued and respected, regardless of background.</p>
+            </div>
+            <div class="value">
+                <h3>Innovation</h3>
+                <p>We are committed to leveraging the latest technologies to provide innovative solutions that enhance the feedback process.</p>
+            </div>
+            <div class="value">
+                <h3>Empathy</h3>
+                <p>We strive to foster a culture of empathy, ensuring that feedback is used to create a more understanding and supportive educational environment.</p>
+            </div>
+            <div class="value">
+                <h3>Transparency</h3>
+                <p>We maintain transparency in our processes and ensure that feedback is used constructively to drive positive change.</p>
+            </div>
+        </div>
+    </section>
+    <section class="team-section">
+        <h2>Meet Our Team</h2>
+        <div class="team-members">
+            <div class="team-member">
+                <img src="team-member-1.jpg" alt="Team Member 1">
+                <h3>John Doe</h3>
+                <p>CEO & Founder</p>
+            </div>
+            <div class="team-member">
+                <img src="team-member-2.jpg" alt="Team Member 2">
+                <h3>Jane Smith</h3>
+                <p>Chief Technology Officer</p>
+            </div>
+            <div class="team-member">
+                <img src="team-member-3.jpg" alt="Team Member 3">
+                <h3>Emily Johnson</h3>
+                <p>Head of Product</p>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <p>&copy; 2024 TalkTabs. All rights reserved.</p>
+    </footer>
+</body>
+</html>

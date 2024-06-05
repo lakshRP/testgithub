@@ -1,27 +1,605 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <title>Auth system</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TalkTabs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,500;0,600;0,700;0,800;0,900;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,500;0,600;0,700;0,800;0,900;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <style>
+    .roboto-thin {
+  font-family: "Roboto", sans-serif;
+  font-weight: 100;
+  font-style: normal;
+}
+
+.roboto-thin-italic {
+  font-family: "Roboto", sans-serif;
+  font-weight: 100;
+  font-style: italic;
+}
+
+.roboto-light {
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.roboto-light-italic {
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.roboto-regular {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.roboto-regular-italic {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.roboto-medium {
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.roboto-medium-italic {
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  font-style: italic;
+}
+
+.roboto-bold {
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.roboto-bold-italic {
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.roboto-black {
+  font-family: "Roboto", sans-serif;
+  font-weight: 900;
+  font-style: normal;
+}
+
+.roboto-black-italic {
+  font-family: "Roboto", sans-serif;
+  font-weight: 900;
+  font-style: italic;
+}
+
+    .fira-sans-medium-italic {
+  font-family: "Fira Sans", sans-serif;
+  font-weight: 500;
+  font-style: italic;
+}
+
+.fira-sans-semibold {
+  font-family: "Fira Sans", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.fira-sans-semibold-italic {
+  font-family: "Fira Sans", sans-serif;
+  font-weight: 600;
+  font-style: italic;
+}
+
+.fira-sans-bold {
+  font-family: "Fira Sans", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.fira-sans-bold-italic {
+  font-family: "Fira Sans", sans-serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.fira-sans-extrabold {
+  font-family: "Fira Sans", sans-serif;
+  font-weight: 800;
+  font-style: normal;
+}
+
+.fira-sans-extrabold-italic {
+  font-family: "Fira Sans", sans-serif;
+  font-weight: 800;
+  font-style: italic;
+}
+
+.fira-sans-black {
+  font-family: "Fira Sans", sans-serif;
+  font-weight: 900;
+  font-style: normal;
+}
+
+.fira-sans-black-italic {
+  font-family: "Fira Sans", sans-serif;
+  font-weight: 900;
+  font-style: italic;
+}
+
+.fira-sans-medium {
+  font-family: "Fira Sans", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+    .kanit-thin {
+  font-family: "Kanit", sans-serif;
+  font-weight: 100;
+  font-style: normal;
+}
+
+.kanit-thin-italic {
+  font-family: "Kanit", sans-serif;
+  font-weight: 100;
+  font-style: italic;
+}
+
+.kanit-extralight {
+  font-family: "Kanit", sans-serif;
+  font-weight: 200;
+  font-style: normal;
+}
+
+.kanit-extralight-italic {
+  font-family: "Kanit", sans-serif;
+  font-weight: 200;
+  font-style: italic;
+}
+
+.kanit-light {
+  font-family: "Kanit", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.kanit-light-italic {
+  font-family: "Kanit", sans-serif;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.kanit-regular {
+  font-family: "Kanit", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.kanit-regular-italic {
+  font-family: "Kanit", sans-serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.kanit-medium {
+  font-family: "Kanit", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.kanit-medium-italic {
+  font-family: "Kanit", sans-serif;
+  font-weight: 500;
+  font-style: italic;
+}
+
+.kanit-semibold {
+  font-family: "Kanit", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.kanit-semibold-italic {
+  font-family: "Kanit", sans-serif;
+  font-weight: 600;
+  font-style: italic;
+}
+
+.kanit-bold {
+  font-family: "Kanit", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.kanit-bold-italic {
+  font-family: "Kanit", sans-serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.kanit-extrabold {
+  font-family: "Kanit", sans-serif;
+  font-weight: 800;
+  font-style: normal;
+}
+
+.kanit-extrabold-italic {
+  font-family: "Kanit", sans-serif;
+  font-weight: 800;
+  font-style: italic;
+}
+
+.kanit-black {
+  font-family: "Kanit", sans-serif;
+  font-weight: 900;
+  font-style: normal;
+}
+
+.kanit-black-italic {
+  font-family: "Kanit", sans-serif;
+  font-weight: 900;
+  font-style: italic;
+}
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      color: #4a4a4a;
+      background-color: #f6f9fc;
+    }
+
+    header {
+      background-color: #0a2540;
+      color: #fff;
+      padding: 1rem 2rem;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: "Kanit", sans-serif;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+    }
+
+    .nav-links li {
+      margin: 0 1rem;
+    }
+
+    .nav-links a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: #a0aec0;
+    }
+
+    .auth-buttons .login-btn,
+    .auth-buttons .signup-btn {
+      margin-left: 1rem;
+      text-decoration: none;
+      color: #0a2540;
+      background-color: #fff;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .auth-buttons .login-btn:hover,
+    .auth-buttons .signup-btn:hover {
+      background-color: #6772e5;
+      color: #fff;
+    }
+
+    .signup-btn {
+      background-color: #6772e5;
+      color: #fff;
+    }
+
+    @keyframes moveRed1 {
+  0% { transform: translate(0, 0); }
+  50% { transform: translate(-10%, 10%); }
+  100% { transform: translate(0, 0); }
+}
+
+@keyframes moveRed2 {
+  0% { transform: translate(0, 0); }
+  50% { transform: translate(10%, -10%); }
+  100% { transform: translate(0, 0); }
+}
+
+.hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4rem 2rem;
+  background-color:hsla(0,100%,50%,1);
+background-image:
+radial-gradient(at 57% 2%, hsla(28,100%,74%,1) 0px, transparent 50%),
+radial-gradient(at 80% 0%, hsla(189,100%,56%,1) 0px, transparent 50%),
+radial-gradient(at 0% 50%, hsla(359,100%,50%,1) 0px, transparent 50%),
+radial-gradient(at 80% 50%, hsla(340,100%,50%,1) 0px, transparent 50%),
+radial-gradient(at 23% 100%, hsla(22,100%,77%,1) 0px, transparent 50%),
+radial-gradient(at 80% 100%, hsla(242,100%,70%,1) 0px, transparent 50%),
+radial-gradient(at 0% 0%, hsla(343,100%,76%,1) 0px, transparent 50%);
+  color: rgba(0, 0, 0, 0.8);
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  margin-top: -50vh;
+  margin-left: -12.5vw;
+  transform: rotate(-20deg); /* Rotate the hero section */
+  transform-origin: center; /* Rotate around the center */
+  z-index: -1;
+}
+
+.hero::before,
+.hero::after {
+  content: "";
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  top: -50%;
+  left: -50%;
+  background: none;
+}
+
+.hero::before {
+  background-image:
+    radial-gradient(at 0% 50%, hsla(355, 100%, 50%, 1) 0px, transparent 50%);
+  animation: moveRed1 7.6s infinite alternate;
+}
+
+.hero::after {
+  background-image:
+    radial-gradient(at 30% 100%, hsla(22,100%,77%,1) 0px, transparent 50%);
+  animation: moveRed2 10s infinite alternate;
+}
+
+
+
+    .hero-content {
+      max-width: 50%;
+      margin: 0 auto;
+      text-align: center;
+      font-size: large;
+      /* Center text content */
+      font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  transform: rotate(20deg); /* Rotate the content back to normal */
+      transform-origin: center; /* Rotate around the center */
+
+      margin-top: 50vh;
+  margin-left: 12.5vw;
+      z-index: 100;
+    }
+
+    .hero-content h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero-content p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+    }
+
+    .cta-buttons .primary-btn,
+    .cta-buttons .secondary-btn {
+      text-decoration: none;
+      color: #fff;
+      background-color: #6772e5;
+      padding: 0.75rem 1.5rem;
+      border-radius: 5px;
+      margin-right: 1rem;
+      transition: background-color 0.3s;
+    }
+
+    .cta-buttons .primary-btn:hover,
+    .cta-buttons .secondary-btn:hover {
+      background-color: #5469d4;
+    }
+
+    .cta-buttons .secondary-btn {
+      background-color: #32325d;
+    }
+
+    .hero-image img {
+      width: 100%;
+      max-width: 500px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .features {
+      padding: 4rem 2rem;
+      text-align: center;
+      background: #f6f9fc;
+    }
+
+    .features h2 {
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+      color: #32325d;
+    }
+
+    .features-grid {
+      display: flex;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+
+    .feature-item {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 10px;
+      text-align: center;
+      flex: 1;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s;
+    }
+
+    .feature-item:hover {
+      transform: translateY(-10px);
+    }
+
+    .feature-item h3 {
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+      color: #32325d;
+    }
+
+    .how-it-works {
+      padding: 4rem 2rem;
+      background: #fff;
+      text-align: center;
+    }
+
+    .how-it-works h2 {
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+      color: #32325d;
+    }
+
+    .steps {
+      display: flex;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+
+    .step {
+      flex: 1;
+      padding: 2rem;
+      background: #f6f9fc;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s;
+    }
+
+    .step:hover {
+      transform: translateY(-10px);
+    }
+
+    .step h3 {
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+      color: #32325d;
+    }
+
+    footer {
+      background: #0a2540;
+      color: #fff;
+      text-align: center;
+      padding: 1rem 0;
+    }
+
+    footer p {
+      margin: 0;
+    }
+  </style>
 </head>
+
 <body>
-
-<div class="container">
-    <div class=" row justify-content-center">
-        <div class="col-sm-8">
-            <h2>Home page</h2>
-            <a href="/register" class="btn btn-primary mt-3">Register</a>
-            <a href="/login" class="btn btn-dark mt-3">Login</a>
-        </div>
-
+  <header>
+    <nav>
+      <div class="logo">TalkTabs</div>
+      <ul class="nav-links">
+        <li><a href="{{ url_for('home') }}">Home</a></li>
+        <li><a href="{{ url_for('features') }}">Features</a></li>
+        <li><a href="{{ url_for('pricing') }}">Pricing</a></li>
+        <li><a href="{{ url_for('about') }}">About Us</a></li>
+        <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
+      </ul>
+      <div class="auth-buttons">
+        <a href="/login" class="login-btn">Login</a>
+        <a href="/register" class="signup-btn">Sign Up</a>
+      </div>
+    </nav>
+  </header>
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Transform Classroom Feedback with AI-Powered Surveys</h1>
+      <p>Effortlessly gather and analyze student feedback to enhance the learning experience.</p>
+      <div class="cta-buttons">
+        <a href="#" class="primary-btn">Get Started</a>
+        <a href="#" class="secondary-btn">Learn More</a>
+      </div>
     </div>
-  
-</div>
-
-</body>
-</html>
+    
+  </section>
+  <section class="features">
+    <h2>Why Choose TalkTabs?</h2>
+    <div class="features-grid">
+      <div class="feature-item">
+        <img src="survey-icon.png" alt="Survey Icon">
+        <h3>Easy-to-Use Surveys</h3>
+        <p>Simple and intuitive survey interface for students.</p>
+      </div>
+      <div class="feature-item">
+        <img src="ai-icon.png" alt="AI Icon">
+        <h3>AI-Powered Analysis</h3>
+        <p>Advanced AI and BERT technology to summarize and analyze feedback.</p>
+      </div>
+      <div class="feature-item">
+        <img src="shield-icon.png" alt="Shield Icon">
+        <h3>Anonymity Guaranteed</h3>
+        <p>Protects student anonymity to encourage honest feedback.</p>
+      </div>
+      <div class="feature-item">
+        <img src="chart-icon.png" alt="Chart Icon">
+        <h3>Real-Time Insights</h3>
+        <p>Immediate, actionable feedback for teachers.</p>
+      </div>
+    </div>
+  </section>
+  <section class="how-it-works">
+    <h2>How TalkTabs Works</h2>
+    <div class="steps">
+      <div class="step">
+        <img src="create-surveys.png" alt="Create Surveys">
+        <h3>Create Surveys</h3>
+        <p>Administrators and teachers create surveys using our provided templates.</p>
+      </div>
+      <div class="step">
+        <img src="collect-responses.png" alt="Collect Responses">
+        <h3>Collect Responses</h3>
+        <p>Students complete surveys anonymously.</p>
+      </div>
+      <div class="step">
+        <img

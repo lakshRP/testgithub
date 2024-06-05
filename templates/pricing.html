@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TalkTabs - Pricing</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            color: #4a4a4a;
+            background-color: #f6f9fc;
+        }
+
+        header {
+            background-color: #0a2540;
+            color: #fff;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+        }
+
+        .nav-links li {
+            margin: 0 1rem;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #a0aec0;
+        }
+
+        .auth-buttons .login-btn,
+        .auth-buttons .signup-btn {
+            margin-left: 1rem;
+            text-decoration: none;
+            color: #0a2540;
+            background-color: #fff;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .auth-buttons .login-btn:hover,
+        .auth-buttons .signup-btn:hover {
+            background-color: #6772e5;
+            color: #fff;
+        }
+
+        .signup-btn {
+            background-color: #6772e5;
+            color: #fff;
+        }
+
+        .pricing {
+            padding: 4rem 2rem;
+            text-align: center;
+            background-color: #f6f9fc;
+        }
+
+        .pricing h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: #32325d;
+        }
+
+        .pricing-table {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            border-collapse: collapse;
+        }
+
+        .pricing-table th,
+        .pricing-table td {
+            padding: 1rem;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        .pricing-table th {
+            background-color: #0a2540;
+            color: #fff;
+        }
+
+        .pricing-table td {
+            background-color: #fff;
+        }
+
+        .plan {
+            background-color: #6772e5;
+            color: #fff;
+        }
+
+        .feature {
+            background-color: #f6f9fc;
+        }
+
+        .check {
+            color: green;
+            font-weight: bold;
+        }
+
+        .cross {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="logo">TalkTabs</div>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('features') }}">Features</a></li>
+                <li><a href="{{ url_for('pricing') }}">Pricing</a></li>
+                <li><a href="{{ url_for('about') }}">About Us</a></li>
+                <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
+            </ul>
+            <div class="auth-buttons">
+                <a href="/login" class="login-btn">Login</a>
+                <a href="/register" class="signup-btn">Sign Up</a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="pricing">
+        <h2>Our Pricing</h2>
+        <table class="pricing-table">
+            <thead>
+                <tr>
+                    <th>Feature</th>
+                    <th class="plan">Teacher Plan<br>$10 USD per month</th>
+                    <th class="plan">Institution Plan<br>$300+ USD per month</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="feature">Scale</td>
+                    <td>One classroom</td>
+                    <td>ENTIRE school</td>
+                </tr>
+                <tr>
+                    <td class="feature">Functionality</td>
+                    <td>Education-based</td>
+                    <td>Institution-driven</td>
+                </tr>
+                <tr>
+                    <td class="feature">Reports</td>
+                    <td>Personalized</td>
+                    <td>Personalized & Generalized</td>
+                </tr>
+                <tr>
+                    <td class="feature">Integration</td>
+                    <td>School’s Learning Software</td>
+                    <td>School’s Management Software</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+</body>
+
+</html>

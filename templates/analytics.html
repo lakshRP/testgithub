@@ -2,11 +2,81 @@
 <html>
 <head>
     <title>Feedback Analytics</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+        h1, h2, h3 {
+            text-align: center;
+            color: #333;
+        }
+        h1 {
+            margin-bottom: 10px;
+        }
+        h2, h3 {
+            margin-bottom: 5px;
+        }
+        #listOfResponces {
+            list-style-type: none;
+            padding: 0;
+            margin: 20px auto;
+            width: 80%;
+            max-width: 800px;
+        }
+        #listOfResponces li {
+            background: #fff;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            filter: blur(4px);
+            user-select: none; /* Disable text selection */
+            -webkit-user-select: none; /* Disable text selection for Safari */
+            -moz-user-select: none; /* Disable text selection for Firefox */
+            -ms-user-select: none; /* Disable text selection for IE/Edge */
+        }
+        button {
+            display: block;
+            width: 200px;
+            margin: 20px auto;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        #loader {
+            border: 16px solid #f3f3f3;
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            animation: spin 2s linear infinite;
+            display: none;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        #summary, #actionPlan {
+            background: #fff;
+            padding: 20px;
+            margin: 20px auto;
+            width: 80%;
+            max-width: 800px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
 </head>
 <body>
     <h1>Feedback Analytics</h1>
     <h2>Question: {{ question }}</h2>
-    <h3>Color: {{ color }}</h3>
     
     <h2>Feedback Received:</h2>
     <ul id="listOfResponces">
@@ -15,7 +85,16 @@
     {% endfor %}
     </ul>
 
-    <button onclick="sendToPython()">Summarize</button>
+    <button id="summarizeButton" onclick="sendToPython()">Summarize</button>
+
+    <!-- Loading spinner -->
+    <div id="loader" class="loader"></div>
+
+    <h2>Summary:</h2>
+    <div id="summary"></div>
+    <h2>Action Plan:</h2>
+    <div id="actionPlan"></div>
+    
     <script>
         function sendToPython() {
             var listOfResponces = document.getElementById("listOfResponces");
@@ -23,7 +102,10 @@
             for (var i = 0; i < listOfResponces.children.length; i++) {
                 feedbacks.push(listOfResponces.children[i].textContent);
             }
-            
+
+            // Show the loader
+            document.getElementById("loader").style.display = "block";
+
             fetch("/summarize_feedback", {
                 method: "POST",
                 headers: {
@@ -33,12 +115,22 @@
             })
             .then(response => response.json())
             .then(data => {
-                listOfResponces.innerHTML = "<li>" + data.summary + "</li>";
+                document.getElementById("summary").textContent = data.summary;
+                document.getElementById("actionPlan").textContent = data.action_plan;
             })
             .catch(error => {
                 console.error("Error:", error);
+            })
+            .finally(() => {
+                // Hide the loader
+                document.getElementById("loader").style.display = "none";
             });
         }
+
+        // Apply the color to the button and loader
+        var buttonColor = "{{ color }}";
+        document.getElementById("summarizeButton").style.backgroundColor = buttonColor;
+        document.getElementById("loader").style.borderTopColor = buttonColor;
     </script>
 </body>
 </html>

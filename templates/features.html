@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TalkTabs - Features</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            color: #4a4a4a;
+            background-color: #f6f9fc;
+        }
+
+        header {
+            background-color: #0a2540;
+            color: #fff;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+        }
+
+        .nav-links li {
+            margin: 0 1rem;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #a0aec0;
+        }
+
+        .auth-buttons .login-btn,
+        .auth-buttons .signup-btn {
+            margin-left: 1rem;
+            text-decoration: none;
+            color: #0a2540;
+            background-color: #fff;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .auth-buttons .login-btn:hover,
+        .auth-buttons .signup-btn:hover {
+            background-color: #6772e5;
+            color: #fff;
+        }
+
+        .signup-btn {
+            background-color: #6772e5;
+            color: #fff;
+        }
+
+        .hero {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: #fff;
+            border-bottom-left-radius: 50% 20%;
+            border-bottom-right-radius: 50% 20%;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 60%;
+        }
+
+        .hero-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .cta-buttons .primary-btn,
+        .cta-buttons .secondary-btn {
+            text-decoration: none;
+            color: #fff;
+            background-color: #6772e5;
+            padding: 0.75rem 1.5rem;
+            border-radius: 5px;
+            margin-right: 1rem;
+            transition: background-color 0.3s;
+        }
+
+        .cta-buttons .primary-btn:hover,
+        .cta-buttons .secondary-btn:hover {
+            background-color: #5469d4;
+        }
+
+        .cta-buttons .secondary-btn {
+            background-color: #32325d;
+        }
+
+        .features {
+            padding: 4rem 2rem;
+            background: #fff;
+            text-align: center;
+        }
+
+        .features h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: #32325d;
+        }
+
+        .feature {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4rem;
+        }
+
+        .feature:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .feature-content {
+            flex: 1;
+            padding: 2rem;
+        }
+
+        .feature-content h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #32325d;
+        }
+
+        .feature-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .feature-content .primary-btn {
+            text-decoration: none;
+            color: #fff;
+            background-color: #6772e5;
+            padding: 0.75rem 1.5rem;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .feature-content .primary-btn:hover {
+            background-color: #5469d4;
+        }
+
+        .feature-image {
+            flex: 1;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .feature-image img {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        footer {
+            background: #0a2540;
+            color: #fff;
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        footer p {
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="logo">TalkTabs</div>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('features') }}">Features</a></li>
+                <li><a href="{{ url_for('pricing') }}">Pricing</a></li>
+                <li><a href="{{ url_for('about') }}">About Us</a></li>
+                <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
+            </ul>
+            <div class="auth-buttons">
+                <a href="#" class="login-btn">Login</a>
+                <a href="#" class="signup-btn">Sign Up</a>
+            </div>
+        </nav>
+    </header>
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Discover the Powerful Features of TalkTabs</h1>
+            <p>Our AI-powered survey platform provides unique and impactful features to transform the way you gather and
+                analyze feedback in the classroom.</p>
+            <div class="cta-buttons">
+                <a href="#" class="primary-btn">Get Started</a>
+                <a href="#" class="secondary-btn">Learn More</a>
+            </div>
+        </div>
+    </section>
+    <section class="features">
+        <h2>Our Features</h2>
+
+        <div class="feature">
+            <div class="feature-content">
+                <h3>Easy-to-Use Surveys</h3>
+                <p>Simple and intuitive survey interface for students, designed to encourage honest and thoughtful
+                    feedback.</p>
+                <a href="#" class="primary-btn">Learn More</a>
+            </div>
+            <div class="feature-image">
+                <img src="survey-icon.png" alt="Survey Icon">
+            </div>
+        </div>
+
+        <div class="feature">
+            <div class="feature-content">
+                <h3>AI-Powered Analysis</h3>
+                <p>Utilize advanced AI and BERT technology to summarize and analyze feedback, providing teachers with
+                    concise and actionable insights.</p>
+                <a href="#" class="primary-btn">Learn More</a>
+            </div>
+            <div class="feature-image">
+                <img src="ai-icon.png" alt="AI Icon">
+            </div>
+        </div>
+
+        <div class="feature">
+            <div class="feature-content">
+                <h3>Anonymity Guaranteed</h3>
+                <p>Protect student anonymity to ensure that feedback is honest and uninhibited, fostering a culture of
+                    trust and openness.</p>
+                <a href="#" class="primary-btn">Learn More</a>
+            </div>
+            <div class="feature-image">
+                <img src="shield-icon.png" alt="Shield Icon">
+            </div>
+        </div>
+
+        <div class="feature">
+            <div class="feature-content">
+                <h3>Real-Time Insights</h3>
+                <p>Receive immediate feedback and actionable insights, enabling teachers to respond quickly to student
+                    needs and improve the learning experience.</p>
+                <a href="#" class="primary-btn">Learn More</a>
+            </div>
+            <div class="feature-image">
+                <img src="chart-icon.png" alt="Chart Icon">
+            </div>
+        </div>
+    </section>
+    <footer>
+        <p>&copy; 2024 TalkTabs. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>
