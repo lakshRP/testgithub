@@ -6,10 +6,7 @@ def summarize_feedback(feedbacks):
     summarizer = pipeline("summarization")
 
     feedback_text = " ".join(feedbacks)
-    max_length = len(feedback_text.split())
-    min_length = max_length // 2
-
-    summary = summarizer(feedback_text, max_length=max_length, min_length=min_length, do_sample=False)
+    summary = summarizer(feedback_text, max_length=150, min_length=30, do_sample=False)
 
     return summary[0]['summary_text']
 
