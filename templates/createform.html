@@ -42,14 +42,13 @@
         <button onclick="changeColor()">Change Color</button>
         
         <button onclick="updateCreateFormLink()">Update form</button>
-        <a id="createForm" class="btn btn-dark">Create form</a>
+        <a id="createForm" class="btn btn-dark" href="#">Create form</a>
+        <p id="formLink"></p>
     </div>
 
     <div class="student-form preview">
         <h2>Student Form</h2>
         <form>
-  
-      
             <label id="studentQuestion" class="accent">What do you think about the recent changes?</label>
             <br>
             <textarea rows="4" cols="50"></textarea>
@@ -59,27 +58,29 @@
     </div>
 
     <script>
-        var question = document.getElementById('questionInput').value;
-            var color = document.getElementById('colorInput').value;
-            var createFormLink = document.getElementById('createForm');
         function updateQuestion() {
             var newQuestion = document.getElementById('questionInput').value;
             if(newQuestion) {
                 document.getElementById('studentQuestion').innerText = newQuestion;
             }
-            createFormLink.href = `/create_session?question=${encodeURIComponent(question)}&color=${encodeURIComponent(color)}`;
+            updateCreateFormLink();
         }
 
         function changeColor() {
             var newColor = document.getElementById('colorInput').value;
             document.querySelector('.accent').style.color = newColor;
-            createFormLink.href = `/create_session?question=${encodeURIComponent(question)}&color=${encodeURIComponent(color)}`;
+            updateCreateFormLink();
         }
+
         function updateCreateFormLink() {
             var question = document.getElementById('questionInput').value;
             var color = document.getElementById('colorInput').value;
             var createFormLink = document.getElementById('createForm');
-            createFormLink.href = `/create_session?question=${encodeURIComponent(question)}&color=${encodeURIComponent(color)}`;
+            var encodedQuestion = encodeURIComponent(question);
+            var encodedColor = encodeURIComponent(color);
+            var href = `/create_session?question=${encodedQuestion}&color=${encodedColor}`;
+            createFormLink.href = href;
+            document.getElementById('formLink').innerText = `Form link: ${href}`;
         }
     </script>
 </body>

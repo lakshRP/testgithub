@@ -1,11 +1,18 @@
+#!/C:/Users/hklal/OneDrive/Desktop/Talktabs2ndtoFinal/testgithub/venv/Scripts/python.exe
+
+
 from flask import Flask, request, render_template, redirect, url_for, session, jsonify
 from flask_sqlalchemy import SQLAlchemy
 import bcrypt
 import uuid
 import subprocess
 import json
+from datetime import datetime
+from flask_cors import CORS
+
 
 app = Flask(__name__)
+CORS(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 db = SQLAlchemy(app)
 app.secret_key = 'secret_key'
@@ -42,6 +49,7 @@ def is_email_duplicate(email):
 
 with app.app_context():
     db.create_all()
+
 @app.route('/')
 def home():
     return render_template('index.html')
@@ -132,7 +140,7 @@ def create_session():
     
     return redirect(url_for('teacher', session_id=session_id, teacher_email=user_email, question=question, color=color))
 
-@app.route('/teacher/<teacher_email>/<session_id>/<question>/<color>')
+@app.route('/teacher/<session_id>/<teacher_email>/<question>/<color>')
 def teacher(session_id, teacher_email, question, color):
     if 'email' in session and teacher_email == session['email']:
         user = User.query.filter_by(email=session['email']).first()
@@ -143,14 +151,14 @@ def teacher(session_id, teacher_email, question, color):
             return 'Session not found!', 404
     return redirect('/login')
 
-@app.route('/join/<teacher_email>/<session_id>/<question>/<color>')
+@app.route('/join/<session_id>/<teacher_email>/<question>/<color>')
 def join(session_id, teacher_email, question, color):
     if session_id in sessionslist:
         return render_template('form.html', teacher_email=teacher_email, session_id=session_id, question=question, color=color)
     else:
         return 'Session not found!', 404
 
-@app.route('/submit_feedback/<teacher_email>/<session_id>', methods=['POST'])
+@app.route('/submit_feedback/<session_id>/<teacher_email>', methods=['POST'])
 def submit_feedback(session_id, teacher_email):
     feedback_text = request.form['feedback']
     if 'email' in session:
@@ -165,6 +173,7 @@ def submit_feedback(session_id, teacher_email):
 @app.route('/thank_you')
 def thank_you():
     return "Thank you for your feedback!"
+    
 
 def summarize(feedbacks):
     import subprocess
@@ -195,6 +204,23 @@ def summarize_feedback():
     result_data = json.loads(result)
     
     return jsonify(result_data)
+
+@app.route('/view_summary/<session_id>')
+def view_summary(session_id):
+    feedbacks = Feedback.query.filter_by(session_id=session_id).all()
+    feedback_texts = [feedback.feedback_text for feedback in feedbacks]
+
+    summary_result = summarize(feedback_texts)
+    summary_data = json.loads(summary_result)
+
+    summary = {
+        "session_id": session_id,
+        "date": datetime.now(),
+        "question": feedbacks[0].question if feedbacks else "No feedback available",
+        "summary_text": summary_data["summary"]
+    }
+
+    return render_template('view_summary.html', summary=summary)
 
 if __name__ == '__main__':
     app.run(debug=True)
