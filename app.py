@@ -223,4 +223,4 @@ def view_summary(session_id):
     return render_template('view_summary.html', summary=summary)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)
