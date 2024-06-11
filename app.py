@@ -1,27 +1,27 @@
-#!/C:/Users/hklal/OneDrive/Desktop/Talktabs2ndtoFinal/testgithub/venv/Scripts/python.exe
-
+#!/usr/bin/env python3
 
 from flask import Flask, request, render_template, redirect, url_for, session, jsonify
 from flask_sqlalchemy import SQLAlchemy
 import bcrypt
 import uuid
-import subprocess
 import json
 from datetime import datetime
 from flask_cors import CORS
+import os
 
-#fdfdsfds
 app = Flask(__name__)
 CORS(app)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+
+# Configurations
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'sqlite:///database.db')
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'default_secret_key')
 db = SQLAlchemy(app)
-app.secret_key = 'secret_key'
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
-    email = db.Column(db.String(100), unique=True)
-    password = db.Column(db.String(100))
+    email = db.Column(db.String(100), unique=True, nullable=False)
+    password = db.Column(db.String(100), nullable=False)
 
     def __init__(self, email, password, name):
         self.name = name
@@ -130,7 +130,6 @@ def createform():
 def create_session():
     question = request.args.get('question')
     color = request.args.get('color')
-    print(color, question)
     if 'email' in session:
         user = User.query.filter_by(email=session['email']).first()
         user_email = user.email
@@ -173,7 +172,6 @@ def submit_feedback(session_id, teacher_email):
 @app.route('/thank_you')
 def thank_you():
     return "Thank you for your feedback!"
-    
 
 def summarize(feedbacks):
     import subprocess
@@ -216,11 +214,12 @@ def view_summary(session_id):
     summary = {
         "session_id": session_id,
         "date": datetime.now(),
-        "question": feedbacks[0].question if feedbacks else "No feedback available",
+        "question": feedbacks[0].feedback_text if feedbacks else "No feedback available",
         "summary_text": summary_data["summary"]
     }
 
     return render_template('view_summary.html', summary=summary)
 
 if __name__ == '__main__':
-    app.run(debug=False)
+    from waitress import serve
+    serve(app, host='0.0.0.0', port=8080)
